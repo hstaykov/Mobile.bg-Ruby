@@ -1,0 +1,37 @@
+#!/usr/bin/ruby1.8
+require 'net/http'
+require 'uri'
+require 'pp'
+require 'tlsmail'
+require 'time'
+require 'parseconfig'
+require 'nokogiri'
+
+def get_html_content()
+	uri = URI('http://nfs.mobile.bg/pcgi/mobile.cgi')
+	res = Net::HTTP.post_form(uri, 'topmenu' => '5', 'act' => '3', 'rub'=>'1', 'f1'=>'1', 'f2'=>'5', 'f3'=>'1','f4'=>'1','f5'=>'Suzuki','f6'=>'Bandit','f23'=>'0','f22'=>'6')
+	doc = res.body
+	parsed_data = Nokogiri::HTML.parse doc
+	latest_moto_table = parsed_data.css('table')[10]
+	aFile = File.new("txt.html", "w")
+	aFile.write(latest_moto_table)
+	aFile.close	
+end  
+
+def send_message(subject,receiver,message)
+content = <<EOF
+From: tusofiasms@gmail.com
+To: #{receiver}
+subject: #{subject}
+Date: #{Time.now.rfc2822}
+#{message}
+EOF
+print 'content', content
+Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)  
+Net::SMTP.start('smtp.gmail.com', 587, 'gmail.com', 'tusofiasms@gmail.com', 'tusofiasms123', :login) do |smtp| 
+  smtp.send_message(content, 'tusofiasms@gmail.com', 'riceto.new@gmail.com')
+	end
+end
+
+send_message("niiiiiiiah","riceto.new@gmail.com","This is my f*cking message")
+#get_html_content()
