@@ -26,12 +26,17 @@ subject: #{subject}
 Date: #{Time.now.rfc2822}
 #{message}
 EOF
-print 'content', content
+
 Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)  
 Net::SMTP.start('smtp.gmail.com', 587, 'gmail.com', 'tusofiasms@gmail.com', 'tusofiasms123', :login) do |smtp| 
   smtp.send_message(content, 'tusofiasms@gmail.com', 'riceto.new@gmail.com')
 	end
 end
 
-send_message("niiiiiiiah","riceto.new@gmail.com","This is my f*cking message")
+def check_code(user, code)
+	return false;
+end
+
+
+#send_message("niiiiiiiah","riceto.new@gmail.com","This is my f*cking message")
 #get_html_content()

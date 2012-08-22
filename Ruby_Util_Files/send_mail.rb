@@ -1,0 +1,23 @@
+require 'net/http'
+require 'uri'
+require 'pp'
+require 'tlsmail'
+require 'time'
+require 'parseconfig'
+require 'nokogiri'
+
+
+def send_message(subject,receiver,message)
+content = <<EOF
+From: tusofiasms@gmail.com
+To: #{receiver}
+subject: #{subject}
+Date: #{Time.now.rfc2822}
+#{message}
+EOF
+
+Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)  
+Net::SMTP.start('smtp.gmail.com', 587, 'gmail.com', 'tusofiasms@gmail.com', 'tusofiasms123', :login) do |smtp| 
+  smtp.send_message(content, 'tusofiasms@gmail.com', 'riceto.new@gmail.com')
+	end
+end

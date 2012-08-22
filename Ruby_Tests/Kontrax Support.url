@@ -1,0 +1,21 @@
+#Testing File
+class  User
+	def name
+		@name
+	end
+
+	def age
+		@age
+	end
+	
+	def initialize(name, age)
+			@name =  name
+			@age = age
+	end
+	
+	def print
+		puts "#{name} is #{age} years old."
+	end	
+end
+
+User.new("dd","aaaaaaaaaa").print
