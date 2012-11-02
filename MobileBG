@@ -37,6 +37,6 @@ def check_code(user, code)
 	return false;
 end
 
-
+#What the fuck is this Testing for censores
 #send_message("niiiiiiiah","riceto.new@gmail.com","This is my f*cking message")
 #get_html_content()
